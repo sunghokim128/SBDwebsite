@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBD Home</title>
+    <link rel="stylesheet" href="css/reset.css" th:href="@{css/reset.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{css/common.css}">
+    <link rel="stylesheet" href="css/main.css" th:href="@{css/main.css}">
+</head>
+
+<body>
+
+
+<div class="page-wrapper main-page">
+    <div class="page-container">
+        <div class="logo-section">
+            <h1 class="logo">
+                <img src="images/logo.svg" alt="logo" />
+            </h1>
+            <a class="btn-post" href="postingForm.html" th:href="@{/posting/new}">
+                <img src="images/icon-add.svg" alt="">
+                Create
+            </a>
+        </div>
+
+        <div class="sort-section">
+
+            <!-- 이상하게 selection 만 넣으면 프로그램이 오작동한다-->
+
+        </div>
+
+        <table class="posting-table">
+            <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Title</th>
+                <th>Rank</th>
+                <th>Weight</th>
+                <th>Gender</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="posting : ${postings}">
+                <td><a th:text="${posting.id}">[글 아이디]</a></td>
+                <td>
+                    <a>
+                        <div class="img-section">
+                            <img src="images/thumbnail.png" th:src="@{images/thumbnail.png}"  alt="">
+                            <!--인증 동영상 유투브 썸네일 받아오기-->
+                        </div>
+                    </a>
+                </td>
+                <td>
+                    <p class="post-title">
+                        <a href="postingView.html" th:href="@{/posting/id/{id}(id=${posting.id})}" th:text="${posting.title}">게시글 제목</a>
+                    </p>
+                </td>
+
+                <td>
+                    <a th:text="${posting.rank}">
+                        <img src="images/icon-dunbell.svg" th:src="@{images/icon-dunbell.svg}" alt="">
+                        [랭크 여기]
+                    </a>
+                </td>
+                <td>
+                    <a th:text="${posting.weight}">
+                        [몸무게 여기]
+                    </a>
+                </td>
+                <td><a th:text="${posting.gender}">[성별 여기]<a/></td>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+        <div class="pagination-section">
+            <button type="button" class="btn-page btn-prev">
+                <img src="images/icon-arrow_back_gray.svg" alt="">
+            </button>
+            <button type="button" class="btn-page active">1</button>
+            <button type="button" class="btn-page">2</button>
+            <button type="button" class="btn-page">3</button>
+            <button type="button" class="btn-page">4</button>
+            <button type="button" class="btn-page">5</button>
+            <button type="button" class="btn-page btn-next">
+                <img src="images/icon-arrow_forward_white.svg" alt="">
+            </button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
