@@ -1,0 +1,204 @@
+.logo-section{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-wrapper.main-page .logo{
+    width: 165px;
+    height: 65px;
+    margin: 0;
+    border: none;
+}
+
+.page-wrapper.main-page .logo img{
+    width: 165px;
+    height: 65px;
+}
+
+.page-wrapper .btn-post{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 122px;
+    height: 44px;
+    padding: 0 20px;
+    font-weight: 600;
+    color: #000;
+    background: #C0EF5C;
+    border-radius: 2px;
+}
+
+.page-wrapper .btn-post img{
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.page-container{
+    padding: 100px 0 53px;
+}
+
+.sort-section{
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.sort-section label{
+    margin-right: 10px;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.sort-section select{
+    width: 103px;
+    height: 34px;
+    padding: 8px 14px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #FAFAFA;
+    border: 1px solid #404040;
+    border-radius: 2px;
+    -webkit-appearance:none; /* for chrome */
+    appearance:none;
+    background: #262626 url('../images/icon-arrow_drop_down.svg') no-repeat right 14px center/ 10px auto;
+}
+
+.sort-section .divider{
+    width: 1px;
+    height: 24px;
+    margin: 0 14px;
+    background: #404040;
+}
+
+.posting-table{
+    width: 100%;
+    margin-top: 15px;
+    border: 1px solid #262626;
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.6);
+    table-layout: fixed;
+}
+
+.posting-table thead th{
+    height: 40px;
+    padding: 13px 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: #737373;
+    background: #171717;
+}
+.posting-table thead th:nth-child(1){
+    width: 60px;
+}
+.posting-table thead th:nth-child(2){
+    width: 100px;
+}
+.posting-table thead th:nth-child(3){
+    width: 460px;
+}
+.posting-table thead th:nth-child(4){
+    width: 160px;
+}
+.posting-table thead th:nth-child(5){
+    width: 100px;
+}
+.posting-table thead th:nth-child(6){
+    width: 100px;
+}
+.posting-table thead th:nth-child(7){
+    width: 160px;
+}
+
+.posting-table tbody tr:nth-child(n+1){
+    border-top: 1px solid #262626;
+}
+.posting-table tbody td{
+    display:table-cell;
+    font-size: 13px;
+    line-height: 16px;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    vertical-align:middle;
+}
+.posting-table tbody td:nth-child(1) img{
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+.posting-table tbody td:nth-child(1) span{
+    color: #a3a3a3;
+}
+.posting-table tbody tr td:nth-child(2){
+    display:table-cell;
+    text-align: center;
+}
+.posting-table tbody tr td:nth-child(2) img{
+    width: 100px;
+    height: 66px;
+}
+.posting-table tbody td:nth-child(3){
+    padding: 12px 15px;
+    text-align: left;
+    vertical-align: auto;
+}
+.posting-table tbody td:nth-child(3) .post-title{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    color: #fff;
+}
+.posting-table tbody td:nth-child(3) .description{
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.posting-table tbody td:nth-child(4){
+    color: #fff;
+}
+.posting-table tbody td:nth-child(4) img{
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.pagination-section{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.pagination-section .btn-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    background: #262626;
+    border-radius: 2px;
+}
+
+.pagination-section .btn-page.active{
+    color: #C0EF5C;
+}
+
+.pagination-section .btn-page + .btn-page{
+    margin-left: 15px;
+}
+
+.pagination-section .btn-page img{
+    width: 24px;
+    height: 24px;
+}

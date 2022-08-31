@@ -1,0 +1,78 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1RM</title>
+  <meta name="description" content="1RM, 운동">
+  <meta name="keywords" content="1RM, 운동">
+  <link rel="stylesheet" href="css/reset.css" th:href="@{../css/reset.css}"> <!-- 하단 디자인 -->
+  <link rel="stylesheet" href="css/common.css" th:href="@{../css/common.css}"> <!-- 로고, 백그라운드 이미지-->
+  <link rel="stylesheet" href="css/style.css" th:href="@{../css/style.css}"> <!-- 전반적인 Form 디자인, 하단 제외-->
+  <!-- th: 는 타임리프 문법입니다. 제 타임리프 프로젝트에서 css 코드를 사용하려면 파일의 경로를 이렇게 따로 표시해주어야 합니다-->
+  <!-- 타임리프의 좋은점은 HTML의 문법을 고수하기 때문에 프론트쪽 작업을 할때 영향을 주지 않는다는 점 입니다. 그래서 th: 붙어있는 애들은 무시하시면 되겠습니다-->
+</head>
+
+<body>
+<div class="page-wrapper">
+  <div class="page-container">
+    <h1 class="logo">
+      <a href="home.html" th:href="@{../../home}" >
+        <!-- 홈 화면으로 돌아가는 바로가기 기능 -->
+      <img src="../images/logo.svg" alt="logo"/>
+      <!-- 프론트작업 할때는 src="images/logo.svg"로 바꾸기 -->
+      </a>
+    </h1>
+
+    <form action="/posting/new" method="post" onsubmit="return alertMessage();">
+      <div class="summary-data-section">
+        <label for="squat">Squat</label>
+        <input type="text" id="squat" name="squat" placeholder="0">
+        <span class="unit">Kg</span>
+        <label for="benchpress">Bench</label>
+        <input type="text" id="benchpress" name="squat" placeholder="0">
+        <span class="unit">Kg</span>
+        <label for="deadlift">Deadlift</label>
+        <input type="text" id="deadlift" name="deadlift" placeholder="0">
+        <span class="unit">Kg</span>
+        <div class="divider"></div>
+
+        <label for="male">남</label>
+        <input type="radio" id="male" name="gender" value="남성" required>
+        <label for="female">여</label>
+        <input type="radio" id="female" name="gender" value="여성" required>
+        <!-- value=" " 안에 있는 값이 DB에 들어가짐, 영어로 바꾸고 싶으면 "남성" 대신 "male". 단, RankingSystem 등 gender 값을 사용하는 부분 다 체크해야함 -->
+
+        <!-- 이걸 쓰면 이상하게 페이지 로드에서 문제가 생겨서 일단은 radio로 바꿔놓았습니다
+        <label for="gender" >Gender</label>
+        <select name ="gender" id="gender" required>
+          <option value=male">남</option>
+          <option value=female">여</option>
+        </select>
+        -->
+
+        <label for="weight">Weight</label>
+        <input type="text" id="weight" name="weight" placeholder="0">
+        <span class="unit">Kg</span>
+      </div>
+
+      <div class="text-data-section">
+        <label>제목</label>
+        <input type="text" id="title" name = "title" placeholder="입력하세요."/>
+        <label>내용</label>
+        <textarea id="body" name = "body" rows="10" cols="100"  placeholder="입력하세요."></textarea>
+        <label>영상 링크</label>
+        <input type="text" placeholder="입력하세요."/>
+      </div>
+
+      <div class="btn-section">
+        <!-- <button class="btn-cancel" type="submit" onclick="return BSChecker();">Cancel</button> -->
+        <button class="btn-upload" type="submit" onclick="return BSChecker();">Create</button>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+
+<script src="postingAlert.js" th:src="@{../javascript/postingAlert.js}"></script>
+</html>
