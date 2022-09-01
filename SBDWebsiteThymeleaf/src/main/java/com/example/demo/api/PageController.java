@@ -1,15 +1,14 @@
 package com.example.demo.api;
 
-import com.example.demo.DTO.Criteria;
 import com.example.demo.DTO.Posting;
 import com.example.demo.service.PostingServiceImpl;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class PageController {
@@ -18,16 +17,29 @@ public class PageController {
     PostingServiceImpl postingService;
 
     // URL이 "" 이기때문에 홈 화면을 디폴트 값으로 출력
+    // http://localhost:8080/?pageNum=페이지번호  <- 이렇게 URL 에 작성하면 페이지가 넘어가지기는 하는데, 이걸 어떻게 view에 추가하지
     @GetMapping("")
-    public String home(Model model){
-        //글 리스트를 가져와서 home.html 파일에 글 정보를 넘겨줌
+    public String home(@RequestParam(required=true,defaultValue="1")int pageNum, Model model){
+        // 아래에 있는 postingService.getListPaging(pageNum) 가 리턴하는 값은 10개의 게시글이 포함된 List<Posting>
+        model.addAttribute("postings", postingService.getListPaging(pageNum));
+        return "home";
+    }
+
+    /* 이전에 있었던 디폴트 홈 값
+    // URL이 "" 이기때문에 홈 화면을 디폴트 값으로 출력, 글 리스트를 가져와서 model에 그 정보를 담아서 home.html로 전달함
+    @GetMapping("")
+    public String home( Model model){
         model.addAttribute("postings", postingService.getAll());
         return "home";
     }
+     */
+
+
 
     // 홈 화면으로 돌아가는 기능
     @GetMapping("home")
     public String home() { return "redirect:/"; }
+
 
     // 게시글을 올릴 폼(form)을 가져옴
     @GetMapping("/posting/new")
@@ -50,16 +62,14 @@ public class PageController {
     }
 
     /*
-    //게시판 목록 페이지 접속(페이징 적용)
+    //일단 페이지 나눠서 게시글을 10개씩 호출하는거 성공
     @GetMapping("/posting/list")
-    @ResponseBody
-    public void boardListGET(Model model, Criteria cri) {
-
-        //log.info("boardListGET");
-        model.addAttribute("list", postingService.getListPaging(cri));
-
+    public String boardListGET(@RequestParam(required=true,defaultValue="1")int pageNum, Model model) {
+        model.addAttribute("postings", postingService.getListPaging(pageNum));
+        return "testPaging";
     }
-    */
+     */
+
 
     /*
     이거 이제 쓸 필요가 없어짐, Thymeleaf에서

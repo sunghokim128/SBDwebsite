@@ -1,9 +1,7 @@
 package com.example.demo.mapper;
 
-import com.example.demo.DTO.Criteria;
 import com.example.demo.DTO.Posting;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -16,7 +14,7 @@ public interface PostingMapper {
 
     Posting getById(int id);
 
-    public List<Posting> getListPaging(Criteria cri);
+    List<Posting> getListPaging(int skipFrom);
 
     /*
     List<Posting> getByTitle(String title);

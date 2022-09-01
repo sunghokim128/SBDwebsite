@@ -25,18 +25,14 @@
         SELECT * FROM posting order by id desc
     </select>
 
-    <!-- 게시물 목록(페이징) -->
-    <select id="getListPaging" resultMap ="postingmap">
-        select * from (
-        select id, postingTitle, postingBody, guest_weight, guest_gender, guest_squat, guest_benchpress, guest_deadlift, guest_rank
-        from posting order by id desc) as T1
-        <!-- limit ((${pageNum}-1)*${amount}), ${amount} -->
-        limit #{skip},#{amount}
-    </select>
-
-
     <select id="getById" resultMap ="postingmap">
         SELECT * FROM posting WHERE id = #{id}
+    </select>
+
+    <!-- 게시물 목록(페이징) #{pageNum}이 보여질 페이지, 10은 한 페이지 당 보이는 게시물 수 -->
+    <select id="getListPaging" resultMap ="postingmap">
+        SELECT * FROM posting order by id desc
+        LIMIT #{skipFrom},10
     </select>
 
     <!--

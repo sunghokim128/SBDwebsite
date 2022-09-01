@@ -1,13 +1,10 @@
 package com.example.demo.service;
 
-import com.example.demo.DTO.Criteria;
 import com.example.demo.DTO.Posting;
 import com.example.demo.mapper.PostingMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -33,12 +30,13 @@ public class PostingServiceImpl implements PostingService {
         return postingMapper.getById(id);
     }
 
-    /* 게시판 목록(페이징 적용) */
     @Override
-    public List<Posting> getListPaging(Criteria cri) {
-
-        return postingMapper.getListPaging(cri);
+    public List<Posting> getListPaging(int pageNum){
+        int skipFrom = (pageNum - 1) * 10;
+        return postingMapper.getListPaging(skipFrom);
     }
+
+    /* 게시판 목록(페이징 적용) */
 
     /*
     @Override

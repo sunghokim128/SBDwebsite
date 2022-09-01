@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.DTO.Criteria;
 import com.example.demo.DTO.Posting;
 
 import java.util.List;
@@ -13,8 +12,8 @@ public interface PostingService {
 
     Posting getById(int id);
 
-    /* 게시판 목록(페이징 적용) */
-    public List<Posting> getListPaging(Criteria cri);
+    List<Posting> getListPaging(int pageNum);
+
 
     //List<Posting> getByTitle(String title);
 
