@@ -3,6 +3,7 @@ package com.example.demo.api;
 import com.example.demo.DTO.Posting;
 import com.example.demo.service.PostingServiceImpl;
 import javafx.geometry.Pos;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,24 +18,20 @@ public class PageController {
     PostingServiceImpl postingService;
 
     // URL이 "" 이기때문에 홈 화면을 디폴트 값으로 출력
-    // http://localhost:8080/?pageNum=페이지번호  <- 이렇게 URL 에 작성하면 페이지가 넘어가지기는 하는데, 이걸 어떻게 view에 추가하지
     @GetMapping("")
-    public String home(@RequestParam(required=true,defaultValue="1")int pageNum, Model model){
+    public String home(Model model){
+        // boardListGET에서 pageNum 을 1로 설정해두어서 처음 화면을 로드했을때는 1페이지가 디폴트값으로 출력됨
+        return boardListGET(1,model);
+    }
+
+    // http://localhost:8080/posting/list/2 (페이지 번호)  <- 이렇게 URL 에 작성하면 페이지가 넘어가지기는 하는데, 이걸 어떻게 view에 추가하지?
+    // 만약 GetMapping 에 있는 URL 고칠거면 home.html에 있는 th:href, th:src 도 다 고쳐주어야 함
+    @GetMapping("/posting/list/{pageNum}")
+    public String boardListGET(@PathVariable("pageNum") int pageNum, Model model) {
         // 아래에 있는 postingService.getListPaging(pageNum) 가 리턴하는 값은 10개의 게시글이 포함된 List<Posting>
         model.addAttribute("postings", postingService.getListPaging(pageNum));
         return "home";
     }
-
-    /* 이전에 있었던 디폴트 홈 값
-    // URL이 "" 이기때문에 홈 화면을 디폴트 값으로 출력, 글 리스트를 가져와서 model에 그 정보를 담아서 home.html로 전달함
-    @GetMapping("")
-    public String home( Model model){
-        model.addAttribute("postings", postingService.getAll());
-        return "home";
-    }
-     */
-
-
 
     // 홈 화면으로 돌아가는 기능
     @GetMapping("home")
@@ -61,14 +58,6 @@ public class PageController {
         return "postingView";
     }
 
-    /*
-    //일단 페이지 나눠서 게시글을 10개씩 호출하는거 성공
-    @GetMapping("/posting/list")
-    public String boardListGET(@RequestParam(required=true,defaultValue="1")int pageNum, Model model) {
-        model.addAttribute("postings", postingService.getListPaging(pageNum));
-        return "testPaging";
-    }
-     */
 
 
     /*

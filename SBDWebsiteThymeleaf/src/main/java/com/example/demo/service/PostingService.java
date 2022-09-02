@@ -10,9 +10,12 @@ public interface PostingService {
 
     List<Posting> getAll();
 
+    int getTotalCount();
+
     Posting getById(int id);
 
     List<Posting> getListPaging(int pageNum);
+
 
 
     //List<Posting> getByTitle(String title);

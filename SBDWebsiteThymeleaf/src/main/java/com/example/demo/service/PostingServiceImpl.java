@@ -26,6 +26,16 @@ public class PostingServiceImpl implements PostingService {
     }
 
     @Override
+    public int getTotalCount() {
+        return postingMapper.getTotalCount();
+    }
+
+    public int getTotalPageCount(){
+        // 총 게시물 수 / 한 페이지에 게시할 게시물 수 = 총 페이지 수
+        return getTotalCount() / 10;
+    }
+
+    @Override
     public Posting getById(int id) {
         return postingMapper.getById(id);
     }

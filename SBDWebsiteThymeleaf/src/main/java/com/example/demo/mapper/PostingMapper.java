@@ -12,9 +12,13 @@ public interface PostingMapper {
 
     List<Posting> getAll();
 
+    int getTotalCount();
+
     Posting getById(int id);
 
     List<Posting> getListPaging(int skipFrom);
+
+
 
     /*
     List<Posting> getByTitle(String title);
