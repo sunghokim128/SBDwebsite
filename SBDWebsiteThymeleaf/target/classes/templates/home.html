@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SBD Home</title>
-    <link rel="stylesheet" href="css/reset.css" th:href="@{../../css/reset.css}">
-    <link rel="stylesheet" href="css/common.css" th:href="@{../../css/common.css}">
-    <link rel="stylesheet" href="css/main.css" th:href="@{../../css/main.css}">
+    <link rel="stylesheet" href="css/reset.css" th:href="@{css/reset.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{css/common.css}">
+    <link rel="stylesheet" href="css/main.css" th:href="@{css/main.css}">
+    <script src="postingAlert.js" th:src="@{javascript/postingAlert.js}"></script>
 </head>
 
 <body>
@@ -17,10 +18,10 @@
     <div class="page-container">
         <div class="logo-section">
             <h1 class="logo">
-                <img src="images/logo.svg" th:src="@{../../images/logo.svg}" alt="logo" />
+                <img src="images/logo.svg" th:src="@{images/logo.svg}" alt="logo" />
             </h1>
-            <a class="btn-post" href="postingForm.html" th:href="@{../../posting/new}">
-                <img src="images/icon-add.svg" th:src="@{../../images/icon-add.svg}" alt="">
+            <a class="btn-post" href="postingForm.html" th:href="@{posting/new}">
+                <img src="images/icon-add.svg" th:src="@{images/icon-add.svg}" alt="">
                 Create
             </a>
         </div>
@@ -48,7 +49,7 @@
                 <td>
                     <a>
                         <div class="img-section">
-                            <img src="images/thumbnail.png" th:src="@{../../images/thumbnail.png}"  alt="">
+                            <img src="images/thumbnail.png" th:src="@{images/thumbnail.png}"  alt="">
                             <!--인증 동영상 유투브 썸네일 받아오기-->
                         </div>
                     </a>
@@ -61,7 +62,7 @@
 
                 <td>
                     <a th:text="${posting.rank}">
-                        <img src="images/icon-dunbell.svg" th:src="@{../../images/icon-dunbell.svg}" alt="">
+                        <img src="images/icon-dunbell.svg" th:src="@{images/icon-dunbell.svg}" alt="">
                         [랭크 여기]
                     </a>
                 </td>
@@ -77,19 +78,27 @@
             </tbody>
         </table>
 
-        <div class="pagination-section">
-            <button type="button" class="btn-page btn-prev">
-                <img src="images/icon-arrow_back_gray.svg" th:src="@{../../images/icon-arrow_back_gray.svg}" alt="">
-            </button>
-            <button type="button" class="btn-page active">1</button>
-            <button type="button" class="btn-page">2</button>
-            <button type="button" class="btn-page">3</button>
-            <button type="button" class="btn-page">4</button>
-            <button type="button" class="btn-page">5</button>
-            <button type="button" class="btn-page btn-next">
-                <img src="images/icon-arrow_forward_white.svg" th:src="@{../../images/icon-arrow_forward_white.svg}" alt="">
-            </button>
+        <div>
+            <!-- 이스터에그 String 값 -->
+            <p style="white-space: pre-line"> <!-- 이게 있어야 enter가 들어간 String을 view 에서 볼 수 있음 -->
+                <span th:text="${easterEggStatement}"></span>
+            </p>
         </div>
+
+        <div class="pagination-section">
+            <span class="button-area" >총 페이지 수:
+                <span class="btn-page active" th:text="${totalPages}">총 페이지 수</span>
+            </span>
+
+            <form action="" method="get">
+                <label class="button-area">
+                    이동할 페이지 번호:
+                    <input class="text-area" type="text" id="pageNum" name="pageNum" size="3" placeholder="1">
+                    <button type="submit" class="btn-page btn-next">이동</button>
+                </label>
+            </form>
+        </div>
+
     </div>
 </div>
 

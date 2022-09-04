@@ -31,8 +31,10 @@ public class PostingServiceImpl implements PostingService {
     }
 
     public int getTotalPageCount(){
-        // 총 게시물 수 / 한 페이지에 게시할 게시물 수 = 총 페이지 수
-        return getTotalCount() / 10;
+        int totalPostingNum = postingMapper.getTotalCount();
+        // int division 때문에 총 페이지 수가 게시물이 1개 일땐 0페이지 10개일땐 1페이지 11개 일때도 1페이지로 표시됨
+        // (총 게시물 수) / (한 페이지 당 게시물 수) 가 정수로 나눠떨어지면 그대로 두고, 아닐 경우 1페이지를 추가해주는 조건을 추가
+        return totalPostingNum / 10 + (totalPostingNum % 10 == 0 ? 0 : 1);
     }
 
     @Override
@@ -44,6 +46,16 @@ public class PostingServiceImpl implements PostingService {
     public List<Posting> getListPaging(int pageNum){
         int skipFrom = (pageNum - 1) * 10;
         return postingMapper.getListPaging(skipFrom);
+    }
+
+    @Override
+    public String easterEgg(int pageNum){
+        if(pageNum == 800){
+            return "Ronnie's Legendary Squat: [800lb x 2]\n" +
+                    "https://www.youtube.com/watch?v=LVVdlwf1iyM&feature=emb_imp_woyt\n" +
+                    "The King";
+        }
+        return "";
     }
 
     /* 게시판 목록(페이징 적용) */

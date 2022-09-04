@@ -10,6 +10,7 @@ function alertMessage() {
 
     var title = document.getElementById("title").value;
     var body = document.getElementById("body").value;
+    var videolink = document.getElementById("videolink").value;
 
     var sbdTotal = parseInt(squat) + parseInt(benchpress) + parseInt(deadlift);
     var returnScript = "이용자의 3대와 신체정보 입니다. 확인바랍니다.\n";
@@ -28,9 +29,10 @@ function alertMessage() {
     } else if( body.length > 1000 ){
       alert("본문이 너무 큽니다. 1000자 아래로 입력해주세요");
       return false;
-    } else
-
-    {
+    } else if( videolink.length > 500 ){
+            alert("영상 링크가 너무 큽니다. 500자 아래로 입력해주세요");
+            return false;
+    } else {
         if(confirm(returnScript)){
           if (confirm("글을 한번 게시하면 수정/삭제가 불가능합니다\n그래도 글을 게시하시겠습니까?") ) { return true; }
           else { return false; }
@@ -63,3 +65,8 @@ function alertMessage() {
      }
 
  }
+
+ function pageChecker() {
+    alert("이 이상 페이지가 존재하지 않습니다");
+    return false;
+  }

@@ -191,7 +191,14 @@
 }
 
 .pagination-section .btn-page.active{
+    margin-left: 7px;
     color: #C0EF5C;
+}
+
+.pagination-section .text-area{
+    display: flex;
+    margin-left: 7px;
+    margin-right: 10px;
 }
 
 .pagination-section .btn-page + .btn-page{
@@ -201,4 +208,10 @@
 .pagination-section .btn-page img{
     width: 24px;
     height: 24px;
+}
+
+.pagination-section .button-area{
+    display: flex;
+    margin-left: 40px;
+    align-items: center;
 }

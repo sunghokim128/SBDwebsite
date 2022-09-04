@@ -14,7 +14,7 @@ public class Posting {
     private int benchpress; // 작성자 벤치프레스 1RM
     private int deadlift; // 작성자 데드리프트 1RM
     private String rank; // 게스트의 랭크 (3대합계를 체급, 성별 조건을 넣어서 계산함)
-    // private String videoLink; // 3대 인증 영상
+    private String videolink; // 3대 인증 영상
 }
 
 

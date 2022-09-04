@@ -2,14 +2,10 @@ package com.example.demo.api;
 
 import com.example.demo.DTO.Posting;
 import com.example.demo.service.PostingServiceImpl;
-import javafx.geometry.Pos;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 public class PageController {
@@ -17,23 +13,19 @@ public class PageController {
     @Autowired
     PostingServiceImpl postingService;
 
-    // URL이 "" 이기때문에 홈 화면을 디폴트 값으로 출력
+    // 홈 화면을 띄우고 정해진 개수만큼 게시글을 출력함
+    // @RequestParam 으로 pageNum값을 받아서 (따로 입력하지 않으면 디폴트값으로 1선택) 페이지를
     @GetMapping("")
-    public String home(Model model){
-        // boardListGET에서 pageNum 을 1로 설정해두어서 처음 화면을 로드했을때는 1페이지가 디폴트값으로 출력됨
-        return boardListGET(1,model);
-    }
-
-    // http://localhost:8080/posting/list/2 (페이지 번호)  <- 이렇게 URL 에 작성하면 페이지가 넘어가지기는 하는데, 이걸 어떻게 view에 추가하지?
-    // 만약 GetMapping 에 있는 URL 고칠거면 home.html에 있는 th:href, th:src 도 다 고쳐주어야 함
-    @GetMapping("/posting/list/{pageNum}")
-    public String boardListGET(@PathVariable("pageNum") int pageNum, Model model) {
-        // 아래에 있는 postingService.getListPaging(pageNum) 가 리턴하는 값은 10개의 게시글이 포함된 List<Posting>
+    public String home(@RequestParam(required=true,defaultValue="1") int pageNum, Model model){
         model.addAttribute("postings", postingService.getListPaging(pageNum));
+        model.addAttribute("totalPostings", postingService.getTotalCount());
+        model.addAttribute("totalPages", postingService.getTotalPageCount());
+        model.addAttribute("easterEggStatement", postingService.easterEgg(pageNum));
         return "home";
     }
 
-    // 홈 화면으로 돌아가는 기능
+
+    // 다른 화면에서 홈 화면으로 돌아가는 기능
     @GetMapping("home")
     public String home() { return "redirect:/"; }
 
@@ -76,6 +68,3 @@ public class PageController {
     public List<Posting> getPostingBySimilarTitle(@PathVariable("title") String title) { return postingService.getByTitle(title); }
     */
 }
-
-
-

@@ -16,6 +16,8 @@ public interface PostingService {
 
     List<Posting> getListPaging(int pageNum);
 
+    String easterEgg(int pageNum);
+
 
 
     //List<Posting> getByTitle(String title);

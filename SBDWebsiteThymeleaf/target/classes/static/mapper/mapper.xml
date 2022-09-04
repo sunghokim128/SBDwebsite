@@ -14,19 +14,20 @@
         <result column="guest_benchpress" property="benchpress"/>
         <result column="guest_deadlift" property="deadlift"/>
         <result column="guest_rank" property="rank"/>
+        <result column="guest_videoLink" property="videolink"/>
     </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO posting(postingTitle, postingBody, guest_weight, guest_gender, guest_squat, guest_benchpress, guest_deadlift, guest_rank)
-        VALUES(#{title}, #{body}, #{weight}, #{gender}, #{squat}, #{benchpress}, #{deadlift}, #{rank})
+        INSERT INTO posting(postingTitle, postingBody, guest_weight, guest_gender, guest_squat, guest_benchpress, guest_deadlift, guest_rank, guest_videoLink)
+        VALUES(#{title}, #{body}, #{weight}, #{gender}, #{squat}, #{benchpress}, #{deadlift}, #{rank}, #{videolink})
     </insert>
 
     <select id="getAll" resultMap ="postingmap">
         SELECT * FROM posting order by id desc
     </select>
 
-    <select id="getTotalCount" resultMap="postingmap">
-        SELECT COUNT(*) FROM posting;
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*) FROM posting
     </select>
 
     <select id="getById" resultMap ="postingmap">
