@@ -44,16 +44,13 @@
             </div>
         </div>
 
-        <div class="content-section">
-            <div class="text-info">
-                <p style="white-space: pre-line"><td th:text="${posting.videolink}">[영상링크 여기]</td></p>
-            </div>
-        </div>
-
         <!-- 링크로 영상 받아와서 보여주기-->
         <div class="content-section">
-            <div class="text-info">
+            <div class="video-info">
                 <iframe th:src="${posting.videolink}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>[영상 여기]</iframe>
+                <iframe th:src="${posting.videolinkTwo}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>[영상 여기]</iframe>
+                <iframe th:src="${posting.videolinkThree}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>[영상 여기]</iframe>
+
             </div>
         </div>
     </div>

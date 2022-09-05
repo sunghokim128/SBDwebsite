@@ -4,6 +4,11 @@ import com.example.demo.DTO.Posting;
 
 public class RankingSystem {
 
+    //  3대 총량 계산해서 sbd에 값 넣어주기
+    public static void createSBD(Posting posting){
+        posting.setSbd( posting.getSquat() + posting.getBenchpress() + posting.getDeadlift() );
+    }
+
     public static void createRank(Posting posting){
 
         // 3대 총량 계산

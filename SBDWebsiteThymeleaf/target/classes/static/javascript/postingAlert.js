@@ -64,9 +64,10 @@ function alertMessage() {
         return false;
      }
 
+
+     //function testAlert() { alert("why is it not connecting?"); }
+
  }
 
- function pageChecker() {
-    alert("이 이상 페이지가 존재하지 않습니다");
-    return false;
-  }
+
+

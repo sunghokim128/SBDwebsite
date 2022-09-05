@@ -15,11 +15,35 @@
         <result column="guest_deadlift" property="deadlift"/>
         <result column="guest_rank" property="rank"/>
         <result column="guest_videoLink" property="videolink"/>
+        <result column="guest_videoLinkTwo" property="videolinkTwo"/>
+        <result column="guest_videoLinkThree" property="videolinkThree"/>
     </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO posting(postingTitle, postingBody, guest_weight, guest_gender, guest_squat, guest_benchpress, guest_deadlift, guest_rank, guest_videoLink)
-        VALUES(#{title}, #{body}, #{weight}, #{gender}, #{squat}, #{benchpress}, #{deadlift}, #{rank}, #{videolink})
+        INSERT INTO posting(
+            postingTitle,
+            postingBody,
+            guest_weight,
+            guest_gender,
+            guest_squat,
+            guest_benchpress,
+            guest_deadlift,
+            guest_rank,
+            guest_videoLink,
+            guest_videoLinkTwo,
+            guest_videoLinkThree)
+        VALUES(
+            #{title},
+            #{body},
+            #{weight},
+            #{gender},
+            #{squat},
+            #{benchpress},
+            #{deadlift},
+            #{rank},
+            #{videolink},
+            #{videolinkTwo},
+            #{videolinkThree})
     </insert>
 
     <select id="getAll" resultMap ="postingmap">
@@ -28,6 +52,7 @@
 
     <select id="getTotalCount" resultType="int">
         SELECT COUNT(*) FROM posting
+        WHERE postingTitle LIKE '%${title}%'
     </select>
 
     <select id="getById" resultMap ="postingmap">
@@ -40,11 +65,14 @@
         LIMIT #{skipFrom},10
     </select>
 
-    <!--
     <select id="getByTitle" resultMap ="postingmap">
-        SELECT * FROM posting WHERE postingTitle LIKE '%${title}%'
+        SELECT * FROM posting
+        WHERE postingTitle LIKE '%${title}%'
+        order by id desc
+        LIMIT #{skipFrom}, 10
     </select>
 
+    <!--
     <select id="getByCorrectTitle" resultMap ="postingmap">
         SELECT * FROM posting WHERE postingTitle = #{title}
     </select>

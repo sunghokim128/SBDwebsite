@@ -10,7 +10,7 @@ public interface PostingService {
 
     List<Posting> getAll();
 
-    int getTotalCount();
+    int getTotalCount(String title);
 
     Posting getById(int id);
 
@@ -19,8 +19,7 @@ public interface PostingService {
     String easterEgg(int pageNum);
 
 
-
-    //List<Posting> getByTitle(String title);
+    List<Posting> getByTitle(String title, int pageNum);
 
     //Posting getByCorrectTitle(String title);
 

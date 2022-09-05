@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Iterator;
+import java.util.List;
+
 @Controller
 public class PageController {
 
@@ -16,7 +19,24 @@ public class PageController {
     // 홈 화면을 띄우고 정해진 개수만큼 게시글을 출력함
     // @RequestParam 으로 pageNum값을 받아서 (따로 입력하지 않으면 디폴트값으로 1선택) 페이지를
     @GetMapping("")
-    public String home(@RequestParam(required=true,defaultValue="1") int pageNum, Model model){
+    public String home(@RequestParam(required=true,defaultValue="") String title,
+                       @RequestParam(required=true,defaultValue="1") int pageNum,
+                       Model model){
+        //게시글의 제목(title)으로 게시글 검색 (한글자라도 일치하면 제목을 가져온다. 다만 순서에 어긋나면 안됨)
+        model.addAttribute("postings", postingService.getByTitle(title, pageNum));
+        model.addAttribute("totalPages", postingService.getTotalPageCount(title));
+        model.addAttribute("easterEggStatement", postingService.easterEgg(pageNum));
+        model.addAttribute("currentTitle", title);
+        model.addAttribute("currentPage", pageNum);
+        return "home";
+    }
+
+
+    /* 검색 기능을 제외한 getListPaging
+
+    @GetMapping("")
+    public String getPostingBySimilarTitle(@RequestParam(required=true,defaultValue="1") int pageNum,
+                                           Model model) {
         model.addAttribute("postings", postingService.getListPaging(pageNum));
         model.addAttribute("totalPostings", postingService.getTotalCount());
         model.addAttribute("totalPages", postingService.getTotalPageCount());
@@ -24,10 +44,13 @@ public class PageController {
         return "home";
     }
 
+     */
+
+
 
     // 다른 화면에서 홈 화면으로 돌아가는 기능
     @GetMapping("home")
-    public String home() { return "redirect:/"; }
+    public String returnHome() { return "redirect:/"; }
 
 
     // 게시글을 올릴 폼(form)을 가져옴
@@ -61,10 +84,6 @@ public class PageController {
         return "postingView";
     }
 
+     */
 
-    //게시글의 제목(title)으로 게시글 검색 (한글자라도 일치하면 제목을 가져온다. 다만 순서에 어긋나면 안됨)
-    @GetMapping("/posting/title/{title}")
-    @ResponseBody
-    public List<Posting> getPostingBySimilarTitle(@PathVariable("title") String title) { return postingService.getByTitle(title); }
-    */
 }

@@ -17,19 +17,31 @@
 <div class="page-wrapper main-page">
     <div class="page-container">
         <div class="logo-section">
-            <h1 class="logo">
-                <img src="images/logo.svg" th:src="@{images/logo.svg}" alt="logo" />
-            </h1>
+            <a href="home.html" th:href="@{home}">
+                <h1 class="logo">
+                    <img src="images/logo.svg" th:src="@{images/logo.svg}" alt="logo" />
+                </h1>
+            </a>
+
+            <form action="" method="get">
+                <label class="button-area">
+                    검색:
+                    <input class="text-area" type="text" id="title" name="title" size="10" th:value="${currentTitle}">
+                    <button type="submit" class="btn-page btn-next">검색</button>
+                </label>
+            </form>
+
             <a class="btn-post" href="postingForm.html" th:href="@{posting/new}">
                 <img src="images/icon-add.svg" th:src="@{images/icon-add.svg}" alt="">
                 Create
             </a>
         </div>
 
+        <div> <!-- search-section css 파일 만들어주기 -->
+        </div>
+
         <div class="sort-section">
-
             <!-- 이상하게 selection 만 넣으면 프로그램이 오작동한다-->
-
         </div>
 
         <table class="posting-table">
@@ -39,7 +51,7 @@
                 <th></th>
                 <th>Title</th>
                 <th>Rank</th>
-                <th>Weight</th>
+                <th>SBD</th>
                 <th>Gender</th>
             </tr>
             </thead>
@@ -49,7 +61,7 @@
                 <td>
                     <a>
                         <div class="img-section">
-                            <img src="images/thumbnail.png" th:src="@{images/thumbnail.png}"  alt="">
+                            <img th:src="${posting.thumbnail}"  alt="">
                             <!--인증 동영상 유투브 썸네일 받아오기-->
                         </div>
                     </a>
@@ -67,8 +79,8 @@
                     </a>
                 </td>
                 <td>
-                    <a th:text="${posting.weight}">
-                        [몸무게 여기]
+                    <a th:text="${posting.sbd}">
+                        [3대값 여기]
                     </a>
                 </td>
                 <td><a th:text="${posting.gender}">[성별 여기]<a/></td>
@@ -93,7 +105,7 @@
             <form action="" method="get">
                 <label class="button-area">
                     이동할 페이지 번호:
-                    <input class="text-area" type="text" id="pageNum" name="pageNum" size="3" placeholder="1">
+                    <input class="text-area" type="text" id="pageNum" name="pageNum" size="3" th:value="${currentPage}">
                     <button type="submit" class="btn-page btn-next">이동</button>
                 </label>
             </form>

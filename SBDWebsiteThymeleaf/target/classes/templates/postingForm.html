@@ -31,7 +31,7 @@
         <input type="text" id="squat" name="squat" placeholder="0">
         <span class="unit">Kg</span>
         <label for="benchpress">Bench</label>
-        <input type="text" id="benchpress" name="squat" placeholder="0">
+        <input type="text" id="benchpress" name="benchpress" placeholder="0">
         <span class="unit">Kg</span>
         <label for="deadlift">Deadlift</label>
         <input type="text" id="deadlift" name="deadlift" placeholder="0">
@@ -39,7 +39,7 @@
         <div class="divider"></div>
 
         <label for="male">남</label>
-        <input type="radio" id="male" name="gender" value="남성" required>
+        <input type="radio" id="male" name="gender" value="남성" checked="checked" required>
         <label for="female">여</label>
         <input type="radio" id="female" name="gender" value="여성" required>
         <!-- value=" " 안에 있는 값이 DB에 들어가짐, 영어로 바꾸고 싶으면 "남성" 대신 "male". 단, RankingSystem 등 gender 값을 사용하는 부분 다 체크해야함 -->
@@ -63,7 +63,11 @@
         <label>내용</label>
         <textarea id="body" name = "body" rows="10" cols="100"  placeholder="본문을 입력하세요."></textarea>
         <label>영상 링크</label>
-        <textarea id="videolink" name = "videolink" rows="3" cols="100"  placeholder="영상 링크를 입력하세요."></textarea>
+        <textarea id="videolink" name = "videolink" rows="1" cols="100"  placeholder="첫번째 영상 링크를 입력하세요."></textarea>
+        <label>영상 링크</label>
+        <textarea id="videolinkTwo" name = "videolinkTwo" rows="1" cols="100"  placeholder="두번째 영상 링크를 입력하세요."></textarea>
+        <label>영상 링크</label>
+        <textarea id="videolinkThree" name = "videolinkThree" rows="1" cols="100"  placeholder="마지막 영상 링크를 입력하세요."></textarea>
       </div>
 
       <div class="btn-section">

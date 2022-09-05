@@ -144,7 +144,7 @@ input, select, textarea{
 .title-section .right-area .weight-info{
     display: flex;
     align-items: center;
-    width: 120px;
+    width: 130px;
     height: 40px;
     padding: 0 20px;
     font-size: 16px;
@@ -162,10 +162,13 @@ input, select, textarea{
 .content-section{
     margin-top: 40px;
 }
+
 .content-section .video-info iframe{
-    width: 1140px;
-    height: 641px;
+    width: 360px;
+    height: 500px;
+    margin-right: 17px;
 }
+
 .content-section .text-info{
     padding: 14px;
     margin-top: 40px;
