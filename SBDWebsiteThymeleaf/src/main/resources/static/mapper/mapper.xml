@@ -72,6 +72,14 @@
         LIMIT #{skipFrom}, 10
     </select>
 
+
+
+
+    <!-- 페이징 기능 with SearchDto 블로그 그거 만들어보고 다시 만들기-->
+
+
+
+
     <!--
     <select id="getByCorrectTitle" resultMap ="postingmap">
         SELECT * FROM posting WHERE postingTitle = #{title}

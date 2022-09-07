@@ -25,9 +25,13 @@ public class PageController {
         //게시글의 제목(title)으로 게시글 검색 (한글자라도 일치하면 제목을 가져온다. 다만 순서에 어긋나면 안됨)
         model.addAttribute("postings", postingService.getByTitle(title, pageNum));
         model.addAttribute("totalPages", postingService.getTotalPageCount(title));
-        model.addAttribute("easterEggStatement", postingService.easterEgg(pageNum));
         model.addAttribute("currentTitle", title);
         model.addAttribute("currentPage", pageNum);
+
+        if( pageNum == 800 ){
+            model.addAttribute("easterEggStatement", postingService.easterEgg(pageNum));
+        }
+
         return "home";
     }
 

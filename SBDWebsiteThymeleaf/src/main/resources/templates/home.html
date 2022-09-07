@@ -8,11 +8,18 @@
     <link rel="stylesheet" href="css/reset.css" th:href="@{css/reset.css}">
     <link rel="stylesheet" href="css/common.css" th:href="@{css/common.css}">
     <link rel="stylesheet" href="css/main.css" th:href="@{css/main.css}">
-    <script src="postingAlert.js" th:src="@{javascript/postingAlert.js}"></script>
 </head>
-
+    <nav
+        th:with="
+                pageNumber = ${currentPage},
+                pageSize = 5,
+                totalPages = ${totalPages},
+                startPage = ${ pageNumber == pageSize ? (pageNumber - pageSize + 1) : (pageNumber / pageSize) * pageSize + 1},
+                tempEndPage = ${startPage + pageSize - 1},
+                endPage = (${tempEndPage > totalPages ? totalPages : tempEndPage})"
+        aria-label="Page navigation"
+    >
 <body>
-
 
 <div class="page-wrapper main-page">
     <div class="page-container">
@@ -23,6 +30,7 @@
                 </h1>
             </a>
 
+            <!-- 검색 기능 -->
             <form action="" method="get">
                 <label class="button-area">
                     검색:
@@ -90,24 +98,58 @@
             </tbody>
         </table>
 
-        <div>
-            <!-- 이스터에그 String 값 -->
-            <p style="white-space: pre-line"> <!-- 이게 있어야 enter가 들어간 String을 view 에서 볼 수 있음 -->
-                <span th:text="${easterEggStatement}"></span>
-            </p>
-        </div>
+        <!-- 이스터에그 String 값 -->
+        <!-- style="white-space: pre-line"가 있어야 enter가 들어간 String을 view 에서 볼 수 있음 -->
+        <p style="white-space: pre-line"><span th:text="${easterEggStatement}"></span></p>
 
         <div class="pagination-section">
-            <span class="button-area" >총 페이지 수:
-                <span class="btn-page active" th:text="${totalPages}">총 페이지 수</span>
+
+            <!--이전 페이지로 돌아가기 기능 -->
+            <li th:class="btn-page">
+                <form action="" method="get">
+                    <input name="title" type="hidden" th:value="${currentTitle}"></input>
+                    <button th:class="btn-page" th:value="${pageNumber == 1}  ? 1 : ${pageNumber - 1}" name="pageNum" type="submit">
+                        &lt;
+                    </button>
+                </form>
+            </li>
+
+
+            <li th:class="btn-page" th:each="page: ${#numbers.sequence(startPage, endPage)}" >
+                <form action="" method="get">
+                    <input name="title" type="hidden" th:value="${currentTitle}"></input>
+                    <button th:class="btn-page" th:text="${page}" th:value="${page}" name="pageNum" type="submit" th:classappend="${page == currentPage} ? 'btn-page active' "></button>
+                </form>
+            </li>
+
+            <li th:class="btn-page">
+                <form action="" method="get">
+                   <data th:value="${totalPages}" th:id="totalPages" type="hidden"></data>
+                    <input name="title" type="hidden" th:value="${currentTitle}"></input>
+                    <button th:class="btn-page" th:value="${pageNumber == totalPages} ? ${totalPages} : ${pageNumber + 1}" name="pageNum" type="submit">
+                        &gt;
+                    </button>
+                </form>
+            </li>
+
+        </div>
+
+
+
+        <div class="pagination-section">
+
+            <span class="button-area">Total Pages:&nbsp
+                <span class="button-area" th:text="${totalPages}" style="margin-right:50px"></span>
             </span>
 
-            <form action="" method="get">
-                <label class="button-area">
-                    이동할 페이지 번호:
-                    <input class="text-area" type="text" id="pageNum" name="pageNum" size="3" th:value="${currentPage}">
-                    <button type="submit" class="btn-page btn-next">이동</button>
-                </label>
+            <form action="" method="get" onsubmit="return testAlert();">
+                <lable class="button-area" >
+                <span>Move to:</span>
+                <input name="title" type="hidden" th:value="${currentTitle}"></input>
+                <input type="text" id="pageNum" name="pageNum" size="3" th:placeholder="${currentPage}">
+                <button type="submit" th:text="GO" style="background-color:#C0EF5C" ></button>
+                <script src="homeAlert.js" th:src="@{javascript/homeAlert.js}"></script>
+                </lable>
             </form>
         </div>
 

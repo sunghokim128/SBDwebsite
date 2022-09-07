@@ -34,6 +34,7 @@ public class PostingServiceImpl implements PostingService {
             LinkSystem.changeToEmbed(posting); // 동영상을 embed할 수 있게 URL을 변경해줌
             LinkSystem.createThumbnailImage(posting); // videolink가 비어있으면 디폴트 썸네일 이미지 출력
         }
+
         return postingList;
     }
 

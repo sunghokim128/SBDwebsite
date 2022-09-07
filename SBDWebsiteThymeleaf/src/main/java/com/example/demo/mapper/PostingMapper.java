@@ -10,16 +10,18 @@ public interface PostingMapper {
 
     int insert(Posting posting);
 
-    List<Posting> getAll();
+    List<Posting> getByTitle(String title, int skipFrom);
 
     int getTotalCount(String title);
+
+    List<Posting> getAll();
 
     Posting getById(int id);
 
     List<Posting> getListPaging(int skipFrom);
 
 
-    List<Posting> getByTitle(String title, int skipFrom);
+
 
 
 

@@ -64,10 +64,8 @@ function alertMessage() {
         return false;
      }
 
-
-     //function testAlert() { alert("why is it not connecting?"); }
-
  }
+
 
 
 

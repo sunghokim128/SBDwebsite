@@ -170,11 +170,11 @@
 }
 
 .pagination-section{
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 15px;
+   display: flex;
+   width: 100%;
+   justify-content: flex-end;
+   align-items: center;
+   margin-top: 15px;
 }
 
 .pagination-section .btn-page{
@@ -190,7 +190,26 @@
     border-radius: 2px;
 }
 
+.pagination-section .totalPageNum{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #C0EF5C;
+    background: #262626;
+    border-radius: 2px;
+}
+
 .pagination-section .btn-page.active{
+    margin-left: 7px;
+    color: #C0EF5C;
+}
+
+/* 이거 왜 안돼? */
+.pagination-section .btn-pageTwo.active{
     margin-left: 7px;
     color: #C0EF5C;
 }
@@ -208,10 +227,4 @@
 .pagination-section .btn-page img{
     width: 24px;
     height: 24px;
-}
-
-.pagination-section .button-area{
-    display: flex;
-    margin-left: 40px;
-    align-items: center;
 }
