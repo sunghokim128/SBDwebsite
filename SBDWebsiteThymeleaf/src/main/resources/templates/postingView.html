@@ -30,7 +30,8 @@
             <div class="right-area">
                 <div class="weight-info">
                     <img src="images/icon-dunbell.svg" th:src="@{../../images/icon-dunbell.svg}" alt="">
-                    <td th:text="${posting.rank}">[랭크여기]</td>
+                    <td th:text="${posting.sbd} + '  ' + ${posting.rank}"> [삼대값 밑 랭크 여기] </td>
+
                 </div>
             </div>
         </div>

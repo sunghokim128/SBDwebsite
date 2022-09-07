@@ -21,6 +21,7 @@ public interface PostingService {
 
     List<Posting> getByTitle(String title, int pageNum);
 
+
     //Posting getByCorrectTitle(String title);
 
 

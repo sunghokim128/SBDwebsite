@@ -8,19 +8,20 @@
     <link rel="stylesheet" href="css/reset.css" th:href="@{css/reset.css}">
     <link rel="stylesheet" href="css/common.css" th:href="@{css/common.css}">
     <link rel="stylesheet" href="css/main.css" th:href="@{css/main.css}">
-</head>
     <nav
-        th:with="
+            th:with="
                 pageNumber = ${currentPage},
                 pageSize = 5,
                 totalPages = ${totalPages},
                 startPage = ${ pageNumber == pageSize ? (pageNumber - pageSize + 1) : (pageNumber / pageSize) * pageSize + 1},
                 tempEndPage = ${startPage + pageSize - 1},
                 endPage = (${tempEndPage > totalPages ? totalPages : tempEndPage})"
-        aria-label="Page navigation"
+            aria-label="Page navigation"
     >
-<body>
+</head>
 
+
+<body>
 <div class="page-wrapper main-page">
     <div class="page-container">
         <div class="logo-section">
@@ -30,27 +31,65 @@
                 </h1>
             </a>
 
-            <!-- 검색 기능 -->
-            <form action="" method="get">
-                <label class="button-area">
-                    검색:
-                    <input class="text-area" type="text" id="title" name="title" size="10" th:value="${currentTitle}">
-                    <button type="submit" class="btn-page btn-next">검색</button>
-                </label>
-            </form>
-
             <a class="btn-post" href="postingForm.html" th:href="@{posting/new}">
                 <img src="images/icon-add.svg" th:src="@{images/icon-add.svg}" alt="">
                 Create
             </a>
         </div>
 
-        <div> <!-- search-section css 파일 만들어주기 -->
-        </div>
+        <div class="" style="margin-top: 40px">
 
-        <div class="sort-section">
-            <!-- 이상하게 selection 만 넣으면 프로그램이 오작동한다-->
-        </div>
+            <form style="display: inline" action="" method="get">
+                <label for="date">Date: </label>
+                <select name ="date" id="date" required>
+                    <option value="">all</option>
+                    <option value="">Newest</option>
+                    <option value="">Oldest</option>
+                </select>
+
+                <label for="video" >&nbsp Video: </label>
+                <select name ="video" id="video" required>
+                    <option value="">all</option>
+                    <option value="">Yes</option>
+                    <option value="">No</option>
+                </select>
+
+                <label for="sbd" >&nbsp 1RM: </label>
+                <select name ="sbd" id="sbd" required>
+                    <option value="">all</option>
+                    <option value="">Biggest</option>
+                    <option value="">Smallest</option>
+                </select>
+
+                <label for="gender" >&nbsp Gender: </label>
+                <select name ="selectOne" id="gender" required>
+                    <option value="">all</option>
+                    <option value="">male</option>
+                    <option value="">female</option>
+                </select>
+
+                <label for="views" >&nbsp Views: </label>
+                <select name ="selectOne" id="views" required>
+                    <option value="">all</option>
+                    <option value="">Greatest</option>
+                    <option value="">Least</option>
+                </select>
+
+            </form>
+
+
+            <!-- 검색 기능 -->
+            <form action="" method="get" style="display: inline; float: right">
+                <label class="button-area">
+                    Search:
+                    <input class="text-area" type="text" id="title" name="title" size="10" th:value="${currentTitle}">
+                    <button type="submit" style="background-color:#C0EF5C; font-weight: 600">GO</button>
+                </label>
+            </form>
+
+        <div>
+
+        <div style="margin-top: 20px"> <!-- 여백을 위한 div --> </div>
 
         <table class="posting-table">
             <thead>
@@ -58,9 +97,9 @@
                 <th></th>
                 <th></th>
                 <th>Title</th>
-                <th>Rank</th>
-                <th>SBD</th>
+                <th>1RM</th>
                 <th>Gender</th>
+                <th>Views</th>
             </tr>
             </thead>
             <tbody>
@@ -69,8 +108,9 @@
                 <td>
                     <a>
                         <div class="img-section">
-                            <img th:src="${posting.thumbnail}"  alt="">
-                            <!--인증 동영상 유투브 썸네일 받아오기-->
+                            <a href="postingView.html" th:href="@{/posting/id/{id}(id=${posting.id})}">
+                                <img th:src="${posting.thumbnail}"  alt="">
+                            </a>
                         </div>
                     </a>
                 </td>
@@ -79,19 +119,21 @@
                         <a href="postingView.html" th:href="@{/posting/id/{id}(id=${posting.id})}" th:text="${posting.title}">게시글 제목</a>
                     </p>
                 </td>
-
                 <td>
-                    <a th:text="${posting.rank}">
-                        <img src="images/icon-dunbell.svg" th:src="@{images/icon-dunbell.svg}" alt="">
-                        [랭크 여기]
+                    <a th:text="${posting.sbd} + ' ' + ${posting.rank}">
+                        [3대값 밑 랭크 여기]
                     </a>
                 </td>
                 <td>
-                    <a th:text="${posting.sbd}">
-                        [3대값 여기]
-                    </a>
+                    <a th:text="${posting.gender}">
+                        [성별 여기]
+                        <a/>
                 </td>
-                <td><a th:text="${posting.gender}">[성별 여기]<a/></td>
+                <td>
+                    <a th:text="${posting.views}">
+                        [조회수 여기]
+                        <a/>
+                </td>
 
             </tr>
 
@@ -99,7 +141,7 @@
         </table>
 
         <!-- 이스터에그 String 값 -->
-        <!-- 이게 있어야 enter가 들어간 String을 view 에서 볼 수 있음 -->
+        <!-- style="white-space: pre-line"가 있어야 enter가 들어간 String을 view 에서 볼 수 있음 -->
         <p style="white-space: pre-line"><span th:text="${easterEggStatement}"></span></p>
 
         <div class="pagination-section">
@@ -134,12 +176,12 @@
 
         </div>
 
-
+        <div style="margin-top: 20px"> <!-- 여백을 위한 div --> </div>
 
         <div class="pagination-section">
 
             <span class="button-area">Total Pages:&nbsp
-                <span class="button-area" th:text="${totalPages}" style="margin-right:50px"></span>
+                <span class="button-area" th:text="${totalPages}" style="margin-right:115px"></span>
             </span>
 
             <form action="" method="get" onsubmit="return testAlert();">
@@ -147,7 +189,7 @@
                 <span>Move to:</span>
                 <input name="title" type="hidden" th:value="${currentTitle}"></input>
                 <input type="text" id="pageNum" name="pageNum" size="3" th:placeholder="${currentPage}">
-                <button type="submit" th:text="GO" style="background-color:#C0EF5C" ></button>
+                <button type="submit" th:text="GO" style="background-color:#C0EF5C; font-weight: 600" ></button>
                 <script src="homeAlert.js" th:src="@{javascript/homeAlert.js}"></script>
                 </lable>
             </form>

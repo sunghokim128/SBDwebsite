@@ -20,6 +20,8 @@ public interface PostingMapper {
 
     List<Posting> getListPaging(int skipFrom);
 
+    void updateViews(int id);
+
 
 
 

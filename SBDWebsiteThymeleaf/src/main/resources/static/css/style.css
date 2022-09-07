@@ -144,7 +144,7 @@ input, select, textarea{
 .title-section .right-area .weight-info{
     display: flex;
     align-items: center;
-    width: 130px;
+    width: 200px;
     height: 40px;
     padding: 0 20px;
     font-size: 16px;

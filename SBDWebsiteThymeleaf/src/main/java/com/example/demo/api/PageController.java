@@ -17,38 +17,21 @@ public class PageController {
     PostingServiceImpl postingService;
 
     // 홈 화면을 띄우고 정해진 개수만큼 게시글을 출력함
-    // @RequestParam 으로 pageNum값을 받아서 (따로 입력하지 않으면 디폴트값으로 1선택) 페이지를
     @GetMapping("")
     public String home(@RequestParam(required=true,defaultValue="") String title,
                        @RequestParam(required=true,defaultValue="1") int pageNum,
-                       Model model){
-        //게시글의 제목(title)으로 게시글 검색 (한글자라도 일치하면 제목을 가져온다. 다만 순서에 어긋나면 안됨)
+                       //@RequestParam Filters filters, 이렇게 필터객체 추가?
+                       Model model) {
+        // 게시글의 제목(title)으로 게시글 검색 (한글자라도 일치하면 제목을 가져온다. 다만 순서에 어긋나면 안됨)
         model.addAttribute("postings", postingService.getByTitle(title, pageNum));
         model.addAttribute("totalPages", postingService.getTotalPageCount(title));
         model.addAttribute("currentTitle", title);
         model.addAttribute("currentPage", pageNum);
 
-        if( pageNum == 800 ){
-            model.addAttribute("easterEggStatement", postingService.easterEgg(pageNum));
-        }
+        if( pageNum == 800 ){ model.addAttribute("easterEggStatement", postingService.easterEgg(pageNum));}
 
         return "home";
     }
-
-
-    /* 검색 기능을 제외한 getListPaging
-
-    @GetMapping("")
-    public String getPostingBySimilarTitle(@RequestParam(required=true,defaultValue="1") int pageNum,
-                                           Model model) {
-        model.addAttribute("postings", postingService.getListPaging(pageNum));
-        model.addAttribute("totalPostings", postingService.getTotalCount());
-        model.addAttribute("totalPages", postingService.getTotalPageCount());
-        model.addAttribute("easterEggStatement", postingService.easterEgg(pageNum));
-        return "home";
-    }
-
-     */
 
 
 

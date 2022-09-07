@@ -13,10 +13,10 @@
         <result column="guest_squat" property="squat"/>
         <result column="guest_benchpress" property="benchpress"/>
         <result column="guest_deadlift" property="deadlift"/>
-        <result column="guest_rank" property="rank"/>
         <result column="guest_videoLink" property="videolink"/>
         <result column="guest_videoLinkTwo" property="videolinkTwo"/>
         <result column="guest_videoLinkThree" property="videolinkThree"/>
+        <result column="views" property="views"/>
     </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
@@ -28,10 +28,10 @@
             guest_squat,
             guest_benchpress,
             guest_deadlift,
-            guest_rank,
             guest_videoLink,
             guest_videoLinkTwo,
-            guest_videoLinkThree)
+            guest_videoLinkThree,
+            views)
         VALUES(
             #{title},
             #{body},
@@ -40,10 +40,10 @@
             #{squat},
             #{benchpress},
             #{deadlift},
-            #{rank},
             #{videolink},
             #{videolinkTwo},
-            #{videolinkThree})
+            #{videolinkThree},
+            #{views})
     </insert>
 
     <select id="getAll" resultMap ="postingmap">
@@ -72,6 +72,9 @@
         LIMIT #{skipFrom}, 10
     </select>
 
+    <update id="updateViews">
+        UPDATE posting SET views = views +1 WHERE id=#{id}
+    </update>
 
 
 

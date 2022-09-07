@@ -18,8 +18,8 @@ public class Posting {
     private String videolinkTwo; // 3대 인증 영상 2
     private String videolinkThree; // 3대 인증 영상 3
     private String thumbnail; // 영상 썸네일
-    private int sbd;
-
+    private String sbd;
+    private int views;
 }
 
 

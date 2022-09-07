@@ -56,10 +56,20 @@ public class PostingServiceImpl implements PostingService {
         return totalPostingNum / 10 + (totalPostingNum % 10 == 0 ? 0 : 1);
     }
 
+
     @Override
     public Posting getById(int id) {
-        return postingMapper.getById(id);
+        Posting posting = postingMapper.getById(id);
+        postingMapper.updateViews(id);
+        RankingSystem.createSBD(posting); // 스쿼트, 벤치프레스, 데드리프트 값의 총합을 sbd에 넣어주기
+        RankingSystem.createRank(posting); // 랭킹을 계산해서 rank에 집어넣음
+        return posting;
     }
+    /*
+    getByTitle 에서 RankingSystem.create들을 해주고 getById에서 또 부르는 이유는 title, link 등의 데이터들과 달리 sbd와 rank는
+    DB에 따로 저장되는 값들이 아니기 때문이다. 이렇게 RankingSystem을 DB에 저장하지 않으면 업데이트를 통해서 rank의 조건이 달라져도
+    삼대값을 통해서 Rank를 다시 계산할 수 있다
+     */
 
     @Override
     public String easterEgg(int pageNum){
