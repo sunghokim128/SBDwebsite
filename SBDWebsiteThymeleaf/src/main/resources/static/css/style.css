@@ -35,10 +35,10 @@ input, select, textarea{
     height: 50px;
 }
 .summary-data-section select{
-    width: 75px;
+    width: 85px;
     -webkit-appearance:none; /* for chrome */
     appearance:none;
-    background: #262626 url('../images/icon-arrow_drop_down.svg') no-repeat right 20px center/ 10px auto;
+    background: #262626 url('../images/icon-arrow_drop_down.svg') no-repeat right 15px center/ 10px auto;
 }
 .summary-data-section .unit{
     margin-left: 10px;

@@ -18,7 +18,7 @@
 <div class="page-wrapper">
   <div class="page-container">
     <h1 class="logo">
-      <a href="home.html" th:href="@{../../home}" >
+      <a href="home.html" th:href="@{../../home}" onclick="return youSureYouWannaReturn()">
         <!-- 홈 화면으로 돌아가는 바로가기 기능 -->
       <img src="../images/logo.svg" alt="logo"/>
       <!-- 프론트작업 할때는 src="images/logo.svg"로 바꾸기 -->
@@ -38,40 +38,33 @@
         <span class="unit">Kg</span>
         <div class="divider"></div>
 
-        <label for="male">남</label>
-        <input type="radio" id="male" name="gender" value="남성" checked="checked" required>
-        <label for="female">여</label>
-        <input type="radio" id="female" name="gender" value="여성" required>
-        <!-- value=" " 안에 있는 값이 DB에 들어가짐, 영어로 바꾸고 싶으면 "남성" 대신 "male". 단, RankingSystem 등 gender 값을 사용하는 부분 다 체크해야함 -->
 
-        <!-- 이걸 쓰면 이상하게 페이지 로드에서 문제가 생겨서 일단은 radio로 바꿔놓았습니다
         <label for="gender" >Gender</label>
         <select name ="gender" id="gender" required>
-          <option value=male">남</option>
-          <option value=female">여</option>
+          <option value="남성">남 &#9794;</option>
+          <option value="여성">여 &#9792;</option>
         </select>
-        -->
+
 
         <label for="weight">Weight</label>
-        <input type="text" id="weight" name="weight" placeholder="0">
+        <input type="text" id="weight" name="weight" placeholder="몸무게">
         <span class="unit">Kg</span>
       </div>
 
       <div class="text-data-section">
-        <label>제목</label>
-        <input type="text" id="title" name = "title" placeholder="입력하세요."/>
-        <label>내용</label>
+        <label>Title</label>
+        <input type="text" id="title" name = "title" placeholder="제목을 입력하세요."/>
+        <label>Body</label>
         <textarea id="body" name = "body" rows="10" cols="100"  placeholder="본문을 입력하세요."></textarea>
-        <label>영상 링크</label>
-        <textarea id="videolink" name = "videolink" rows="1" cols="100"  placeholder="첫번째 영상 링크를 입력하세요."></textarea>
-        <label>영상 링크</label>
+        <label>YouTube Video Link 1</label>
+        <textarea id="videolink" name = "videolink" rows="1" cols="100"  placeholder="유투브 영상 링크를 입력하세요."></textarea>
+        <label>YouTube Video Link 2</label>
         <textarea id="videolinkTwo" name = "videolinkTwo" rows="1" cols="100"  placeholder="두번째 영상 링크를 입력하세요."></textarea>
-        <label>영상 링크</label>
+        <label>YouTube Video Link 3</label>
         <textarea id="videolinkThree" name = "videolinkThree" rows="1" cols="100"  placeholder="마지막 영상 링크를 입력하세요."></textarea>
       </div>
 
       <div class="btn-section">
-        <!-- <button class="btn-cancel" type="submit" onclick="return BSChecker();">Cancel</button> -->
         <button class="btn-upload" type="submit" onclick="return BSChecker();">Create</button>
       </div>
     </form>

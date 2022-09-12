@@ -8,21 +8,11 @@ public interface PostingService {
 
     int insert(Posting posting);
 
-    List<Posting> getAll();
+    List<Posting> getPage(String title, int pageNum, String filterValue);
 
-    int getTotalCount(String title);
+    int getTotalPageCount(String title, String filterValue);
 
     Posting getById(int id);
 
-    List<Posting> getListPaging(int pageNum);
-
     String easterEgg(int pageNum);
-
-
-    List<Posting> getByTitle(String title, int pageNum);
-
-
-    //Posting getByCorrectTitle(String title);
-
-
 }

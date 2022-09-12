@@ -4,50 +4,39 @@ import com.example.demo.DTO.Posting;
 
 public class RankingSystem {
 
-    //  3대 총량 계산해서 sbd에 값 넣어주기
-    public static void createSBD(Posting posting){
+    public static void createSBD(Posting posting){ // 3대 총량 계산해서 sbd에 값 넣어주기
         posting.setSbd( posting.getSquat() + posting.getBenchpress() + posting.getDeadlift() + "kg");
     }
 
     public static void createRank(Posting posting){
-
         // 3대 총량 계산
         double sbdTotal = posting.getBenchpress() + posting.getDeadlift() + posting.getSquat();
-
         if( posting.getGender().equals("남성") ){
-
-            // 70kg 남성기준 약 3대 70 이하
-            if( sbdTotal / posting.getWeight() <= 1 ){ posting.setRank("헬스가 절실히 필요한 자"); }
-            // 70kg 남성기준 약 3대 70~200
-            else if( sbdTotal / posting.getWeight() < 2.9 ){ posting.setRank("일반인"); }
-            // 70kg 남성기준 약 3대 200~300
-            else if( sbdTotal / posting.getWeight() < 4.3 ){ posting.setRank("헬린이"); }
-            // 70kg 남성기준 약 3대 300~400
-            else if( sbdTotal / posting.getWeight() < 5.8 ){ posting.setRank("헬소년"); }
-            // 70kg 남성기준 약 3대 400~500
-            else if( sbdTotal / posting.getWeight() < 7.1 ){ posting.setRank("헬어른"); }
-            // 70kg 남성기준 약 3대 500~600
-            else if( sbdTotal / posting.getWeight() < 8.6 ){ posting.setRank("헬창"); }
+            // 75kg 남성기준 약 3대 150 이하
+            if( sbdTotal / posting.getWeight() <= 2 ){ posting.setRank("환자"); }
+            // 75kg 남성기준 약 3대 150~215
+            else if( sbdTotal / posting.getWeight() < 3 ){ posting.setRank("일반인"); }
+            // 75kg 남성기준 약 3대 215~375
+            else if( sbdTotal / posting.getWeight() < 5 ){ posting.setRank("헬린이"); }
+            // 75kg 남성기준 약 3대 375~500
+            else if( sbdTotal / posting.getWeight() < 6.6 ){ posting.setRank("헬어른"); }
+            // 75kg 남성기준 약 3대 500~600
+            else if( sbdTotal / posting.getWeight() < 8 ){ posting.setRank("헬창"); }
             // 그 이상
             else{posting.setRank("로니콜먼");}
-
-        } else {
-
-            // 60kg 여성기준 약 3대 60 이하
-            if( sbdTotal / posting.getWeight() <= 1 ){ posting.setRank("헬스가 절실히 필요한 자"); }
-            // 60kg 여성기준 약 3대 60~120
-            if( sbdTotal / posting.getWeight() < 2 ){ posting.setRank("일반인"); }
+        } else {//성별이 여자인 경우
+            // 60kg 여성기준 약 3대 120 이하
+            if( sbdTotal / posting.getWeight() <= 2 ){ posting.setRank("환자"); }
             // 60kg 여성기준 약 3대 120~180
-            else if( sbdTotal / posting.getWeight() < 3 ){ posting.setRank("헬린이"); }
-            // 60kg 여성기준 약 3대 180~260
-            else if( sbdTotal / posting.getWeight() < 4.3 ){ posting.setRank("헬소녀"); }
-            // 60kg 여성기준 약 3대 260~300
-            else if( sbdTotal / posting.getWeight() < 5.5 ){ posting.setRank("헬어른"); }
-            // 60kg 여성기준 약 3대 300~400
-            else if( sbdTotal / posting.getWeight() < 6.6 ){ posting.setRank("헬창"); }
+            if( sbdTotal / posting.getWeight() < 3 ){ posting.setRank("일반인"); }
+            // 60kg 여성기준 약 3대 180~250
+            else if( sbdTotal / posting.getWeight() < 4.16 ){ posting.setRank("헬린이"); }
+            // 60kg 여성기준 약 3대 250~360
+            else if( sbdTotal / posting.getWeight() < 6 ){ posting.setRank("헬어른"); }
+            // 60kg 여성기준 약 3대 360~480
+            else if( sbdTotal / posting.getWeight() < 8 ){ posting.setRank("헬창"); }
             // 그 이상
             else{posting.setRank("로니콜먼");}
-
         }
 
     }

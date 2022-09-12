@@ -29,9 +29,10 @@
             </div>
             <div class="right-area">
                 <div class="weight-info">
+                    <p th:title="'S:'+${posting.squat}+'kg&#10;B:'+${posting.benchpress}+'kg&#10;D:'+${posting.deadlift}+'kg'">
                     <img src="images/icon-dunbell.svg" th:src="@{../../images/icon-dunbell.svg}" alt="">
                     <td th:text="${posting.sbd} + '  ' + ${posting.rank}"> [삼대값 밑 랭크 여기] </td>
-
+                    </p>
                 </div>
             </div>
         </div>

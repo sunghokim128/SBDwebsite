@@ -8,18 +8,16 @@
     <link rel="stylesheet" href="css/reset.css" th:href="@{css/reset.css}">
     <link rel="stylesheet" href="css/common.css" th:href="@{css/common.css}">
     <link rel="stylesheet" href="css/main.css" th:href="@{css/main.css}">
-    <nav
-            th:with="
+    <nav th:with="
                 pageNumber = ${currentPage},
                 pageSize = 5,
                 totalPages = ${totalPages},
                 startPage = ${ pageNumber == pageSize ? (pageNumber - pageSize + 1) : (pageNumber / pageSize) * pageSize + 1},
                 tempEndPage = ${startPage + pageSize - 1},
                 endPage = (${tempEndPage > totalPages ? totalPages : tempEndPage})"
-            aria-label="Page navigation"
+         aria-label="Page navigation"
     >
 </head>
-
 
 <body>
 <div class="page-wrapper main-page">
@@ -37,59 +35,43 @@
             </a>
         </div>
 
-        <div class="" style="margin-top: 40px">
-
-            <form style="display: inline" action="" method="get">
-                <label for="date">Date: </label>
-                <select name ="date" id="date" required>
-                    <option value="">all</option>
-                    <option value="">Newest</option>
-                    <option value="">Oldest</option>
-                </select>
-
-                <label for="video" >&nbsp Video: </label>
-                <select name ="video" id="video" required>
-                    <option value="">all</option>
-                    <option value="">Yes</option>
-                    <option value="">No</option>
-                </select>
-
-                <label for="sbd" >&nbsp 1RM: </label>
-                <select name ="sbd" id="sbd" required>
-                    <option value="">all</option>
-                    <option value="">Biggest</option>
-                    <option value="">Smallest</option>
-                </select>
-
-                <label for="gender" >&nbsp Gender: </label>
-                <select name ="selectOne" id="gender" required>
-                    <option value="">all</option>
-                    <option value="">male</option>
-                    <option value="">female</option>
-                </select>
-
-                <label for="views" >&nbsp Views: </label>
-                <select name ="selectOne" id="views" required>
-                    <option value="">all</option>
-                    <option value="">Greatest</option>
-                    <option value="">Least</option>
-                </select>
-
-            </form>
-
-
+        <div style="margin-top: 30px">
             <!-- 검색 기능 -->
-            <form action="" method="get" style="display: inline; float: right">
+            <form action="" method="get" style="text-align:right">
                 <label class="button-area">
                     Search:
-                    <input class="text-area" type="text" id="title" name="title" size="10" th:value="${currentTitle}">
+                    <input class="text-area" type="text" id="title" name="title" size="10" th:value="${currentTitle}" placeholder=" 제목으로 검색">
                     <button type="submit" style="background-color:#C0EF5C; font-weight: 600">GO</button>
                 </label>
             </form>
-
         <div>
 
-        <div style="margin-top: 20px"> <!-- 여백을 위한 div --> </div>
+        <div>
+            <form action="" method="get" style="text-align:right; margin-top: 5px">
+                <select name ="filterValue" id="Filter" required>
+                    <optgroup label="날짜(Date)" th:selected="${currentFilter=='Recent'} ? true:false">
+                        <option value="Recent">최근순(Recent)</option>
+                        <option value="Oldest" th:selected="${currentFilter=='Oldest'} ? true:false">오래된순(Oldest)</option>
+                    <optgroup label="조회수(Views)">
+                        <option value="Most" th:selected="${currentFilter=='Most'} ? true:false">많은순(Most Views)</option>
+                        <option value="Least" th:selected="${currentFilter=='Least'} ? true:false">적은순(Least Views)</option>
+                    <optgroup label="3대(SBD)">
+                        <option value="Squat" th:selected="${currentFilter=='Squat'} ? true:false">스쿼트(Squat)</option>
+                        <option value="Benchpress" th:selected="${currentFilter=='Benchpress'} ? true:false">벤치프레스(Bench)</option>
+                        <option value="Deadlift" th:selected="${currentFilter=='Deadlift'} ? true:false">데드리프트(Deadlift)</option>
+                    <optgroup label="성별(Gender)">
+                        <option value="Male" th:selected="${currentFilter=='Male'} ? true:false">남성(Men)</option>
+                        <option value="Female" th:selected="${currentFilter=='Female'} ? true:false">여성(Women)</option>
+                    <optgroup label="인증영상(Video)">
+                        <option value="WithVideo" th:selected="${currentFilter=='WithVideo'} ? true:false">있음(Included)</option>
+                        <option value="WithoutVideo" th:selected="${currentFilter=='WithoutVideo'} ? true:false">없음(Not Included)</option>
+                </select>
+                <input type="hidden" name="title" th:value="${currentTitle}"></input>
+                <button type="submit" style="background-color:#C0EF5C; font-weight: 600">Apply</button>
+            </form>
+        </div>
+
+        <div style="margin-top: 10px"> <!-- 여백을 위한 div --> </div>
 
         <table class="posting-table">
             <thead>
@@ -104,7 +86,7 @@
             </thead>
             <tbody>
             <tr th:each="posting : ${postings}">
-                <td><a th:text="${posting.id}">[글 아이디]</a></td>
+                <td><a th:text="${posting.id}"></a></td>
                 <td>
                     <a>
                         <div class="img-section">
@@ -116,58 +98,48 @@
                 </td>
                 <td>
                     <p class="post-title">
-                        <a href="postingView.html" th:href="@{/posting/id/{id}(id=${posting.id})}" th:text="${posting.title}">게시글 제목</a>
+                        <a href="postingView.html" th:href="@{/posting/id/{id}(id=${posting.id})}" th:text="${posting.title}"></a>
                     </p>
                 </td>
                 <td>
-                    <a th:text="${posting.sbd} + ' ' + ${posting.rank}">
-                        [3대값 밑 랭크 여기]
-                    </a>
+                    <a th:text="${posting.sbd} + ' ' + ${posting.rank}"></a>
                 </td>
                 <td>
-                    <a th:text="${posting.gender}">
-                        [성별 여기]
-                        <a/>
+                    <a th:text="${posting.gender}"><a/>
                 </td>
                 <td>
-                    <a th:text="${posting.views}">
-                        [조회수 여기]
-                        <a/>
+                    <a th:text="${posting.views}"><a/>
                 </td>
-
             </tr>
 
             </tbody>
         </table>
-
-        <!-- 이스터에그 String 값 -->
-        <!-- style="white-space: pre-line"가 있어야 enter가 들어간 String을 view 에서 볼 수 있음 -->
-        <p style="white-space: pre-line"><span th:text="${easterEggStatement}"></span></p>
-
+        <!--이스터에그--><p style="white-space: pre-line"><span th:text="${easterEggStatement}"></span></p><!--이스터에그-->
         <div class="pagination-section">
-
             <!--이전 페이지로 돌아가기 기능 -->
             <li th:class="btn-page">
                 <form action="" method="get">
                     <input name="title" type="hidden" th:value="${currentTitle}"></input>
+                    <input name="filterValue" type="hidden" th:value="${currentFilter}"></input>
                     <button th:class="btn-page" th:value="${pageNumber == 1}  ? 1 : ${pageNumber - 1}" name="pageNum" type="submit">
                         &lt;
                     </button>
                 </form>
             </li>
-
-
+            <!--선택한 페이지로 넘어가기 기능 -->
             <li th:class="btn-page" th:each="page: ${#numbers.sequence(startPage, endPage)}" >
                 <form action="" method="get">
                     <input name="title" type="hidden" th:value="${currentTitle}"></input>
+                    <input name="filterValue" type="hidden" th:value="${currentFilter}"></input>
                     <button th:class="btn-page" th:text="${page}" th:value="${page}" name="pageNum" type="submit" th:classappend="${page == currentPage} ? 'btn-page active' "></button>
                 </form>
             </li>
-
+            <!--다음 페이지로 넘어가기 기능 -->
             <li th:class="btn-page">
                 <form action="" method="get">
                    <data th:value="${totalPages}" th:id="totalPages" type="hidden"></data>
                     <input name="title" type="hidden" th:value="${currentTitle}"></input>
+                    <input name="filterValue" type="hidden" th:value="${currentFilter}"></input>
                     <button th:class="btn-page" th:value="${pageNumber == totalPages} ? ${totalPages} : ${pageNumber + 1}" name="pageNum" type="submit">
                         &gt;
                     </button>
@@ -179,20 +151,22 @@
         <div style="margin-top: 20px"> <!-- 여백을 위한 div --> </div>
 
         <div class="pagination-section">
-
-            <span class="button-area">Total Pages:&nbsp
-                <span class="button-area" th:text="${totalPages}" style="margin-right:115px"></span>
-            </span>
-
-            <form action="" method="get" onsubmit="return testAlert();">
+            <!--원하는 페이지를 입력해서 이동하는 기능 -->
+            <form action="" method="get" onsubmit="return pageNumAlert();">
                 <lable class="button-area" >
-                <span>Move to:</span>
+                <span>Go to page:</span>
                 <input name="title" type="hidden" th:value="${currentTitle}"></input>
-                <input type="text" id="pageNum" name="pageNum" size="3" th:placeholder="${currentPage}">
+                <input name="filterValue" type="hidden" th:value="${currentFilter}"></input>
+                <input type="text" id="pageNum" name="pageNum" size="5" placeholder=" 페이지 이동">
                 <button type="submit" th:text="GO" style="background-color:#C0EF5C; font-weight: 600" ></button>
                 <script src="homeAlert.js" th:src="@{javascript/homeAlert.js}"></script>
                 </lable>
             </form>
+        </div>
+
+        <div class="pagination-section">
+           <span class="button-area">Total Pages (총 페이지 수):&nbsp</span>
+            <span class="button-area" th:text="${totalPages}"></span>
         </div>
 
     </div>

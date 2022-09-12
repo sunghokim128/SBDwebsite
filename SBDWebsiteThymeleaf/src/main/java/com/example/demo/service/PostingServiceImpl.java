@@ -5,7 +5,6 @@ import com.example.demo.mapper.PostingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -19,43 +18,23 @@ public class PostingServiceImpl implements PostingService {
         return postingMapper.insert(posting);
     }
 
-    @Override
-    public List<Posting> getByTitle(String title, int pageNum) {
-
-        int skipFrom = (pageNum - 1) * 10;
-
-        List<Posting> postingList = postingMapper.getByTitle(title, skipFrom);
-
-        for(int i = 0; i < postingList.size(); i++ ){
-            Posting posting = postingList.get(i);
-
-            RankingSystem.createSBD(posting); // 스쿼트, 벤치프레스, 데드리프트 값의 총합을 sbd에 넣어주기
-            RankingSystem.createRank(posting); // 랭킹을 계산해서 rank에 집어넣음
-            LinkSystem.changeToEmbed(posting); // 동영상을 embed할 수 있게 URL을 변경해줌
-            LinkSystem.createThumbnailImage(posting); // videolink가 비어있으면 디폴트 썸네일 이미지 출력
-        }
-
+    public List<Posting> getPage(String title, int pageNum, String filterValue) {
+        int skipFrom = (pageNum - 1) * 20; //한 페이지에 게시물은 최대 20게로 설정
+        List<Posting> postingList = postingMapper.getPage(title, skipFrom, filterValue);
+            for(int i = 0; i < postingList.size(); i++ ){
+                    Posting posting = postingList.get(i);
+                    RankingSystem.createSBD(posting); // 스쿼트, 벤치프레스, 데드리프트 값의 총합을 posting.sbd에 넣어줌
+                    RankingSystem.createRank(posting); // 랭킹을 계산해서 posting.rank에 넣어줌
+                    LinkSystem.changeToEmbed(posting); // 동영상을 embed할 수 있게 URL을 변경해줌
+                    LinkSystem.createThumbnailImage(posting); // videolink가 비어있으면 디폴트 썸네일 이미지 출력
+                }
         return postingList;
     }
 
-
-    @Override
-    public List<Posting> getAll() {
-        return postingMapper.getAll();
+    public int getTotalPageCount(String title, String filterValue){
+        int totalPostingNum = postingMapper.getTotalCount(title, filterValue);
+        return totalPostingNum / 20 + (totalPostingNum % 20 == 0 ? 0 : 1); //한 페이지에 게시물은 최대 20게로 설정
     }
-
-    @Override
-    public int getTotalCount(String title) {
-        return postingMapper.getTotalCount(title);
-    }
-
-    public int getTotalPageCount(String title){
-        int totalPostingNum = postingMapper.getTotalCount(title);
-        // int division 때문에 총 페이지 수가 게시물이 1개 일땐 0페이지 10개일땐 1페이지 11개 일때도 1페이지로 표시됨
-        // (총 게시물 수) / (한 페이지 당 게시물 수) 가 정수로 나눠떨어지면 그대로 두고, 아닐 경우 1페이지를 추가해주는 조건을 추가
-        return totalPostingNum / 10 + (totalPostingNum % 10 == 0 ? 0 : 1);
-    }
-
 
     @Override
     public Posting getById(int id) {
@@ -66,9 +45,9 @@ public class PostingServiceImpl implements PostingService {
         return posting;
     }
     /*
-    getByTitle 에서 RankingSystem.create들을 해주고 getById에서 또 부르는 이유는 title, link 등의 데이터들과 달리 sbd와 rank는
-    DB에 따로 저장되는 값들이 아니기 때문이다. 이렇게 RankingSystem을 DB에 저장하지 않으면 업데이트를 통해서 rank의 조건이 달라져도
-    삼대값을 통해서 Rank를 다시 계산할 수 있다
+    getPage에서 RankingSystem.create을 통해서 sbd와 rank를 계산했음에도 불구하고 getById에서 또 부르는 이유는 sbd와 rank가 DB에 따로
+    저장되는 값들이 아니기 때문이다. 그리고 이렇게 DB에 저장하지 않고 RankingSystem를 통해서 rank값을 불러오는 형식을 유지하면 rank의 기준
+    을 업데이트하기에 용이하다. (헬창의 요구조건이 3대500에서 3대550 이 되어도 DB에 손 안대고 RankingSystem만 손보면 됨)
      */
 
     @Override
@@ -76,26 +55,11 @@ public class PostingServiceImpl implements PostingService {
         if(pageNum == 800){
             return "Ronnie's Legendary Squat: [800lb x 2]\n" +
                     "https://www.youtube.com/watch?v=LVVdlwf1iyM&feature=emb_imp_woyt\n" +
-                    "The King";
+                    "The King\nCongratulations on finding the easter egg!!!\n" +
+                    "Email me through sunghokim128@gmail.com with the title \'PageNum800 Easteregg Found\'\n" +
+                    "I will send you protein powder";
         }
         return "";
     }
-
-    @Override
-    public List<Posting> getListPaging(int pageNum){
-        // skipFrom 은 DB의 Limit a,b의 a 부분을 담당함. 아래있는 10을 고칠거면 mapper도 고쳐주어야 함
-        int skipFrom = (pageNum - 1) * 10;
-        return postingMapper.getListPaging(skipFrom);
-    }
-
-
-    /*
-
-    @Override
-    public Posting getByCorrectTitle(String title) {
-        return postingMapper.getByCorrectTitle(title);
-    }
-    */
-
 
 }

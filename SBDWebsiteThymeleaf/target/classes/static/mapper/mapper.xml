@@ -46,47 +46,99 @@
             #{views})
     </insert>
 
-    <select id="getAll" resultMap ="postingmap">
-        SELECT * FROM posting order by id desc
+    <select id="getPage" resultMap ="postingmap">
+        SELECT * FROM posting
+        WHERE postingTitle LIKE '%${title}%'
+        <choose>
+            <when test='filterValue != null and filterValue == "" '>
+                order by id desc
+            </when>
+            <when test='filterValue != null and filterValue == "Recent" '>
+                order by id desc
+            </when>
+            <when test='filterValue != null and filterValue == "Oldest" '>
+                order by id asc
+            </when>
+            <when test='filterValue != null and filterValue == "Most" '>
+                order by views desc
+            </when>
+            <when test='filterValue != null and filterValue == "Least" '>
+                order by views asc
+            </when>
+            <when test='filterValue != null and filterValue == "Squat" '>
+                order by guest_squat desc
+            </when>
+            <when test='filterValue != null and filterValue == "Benchpress" '>
+                order by guest_benchpress desc
+            </when>
+            <when test='filterValue != null and filterValue == "Deadlift" '>
+                order by guest_deadlift desc
+            </when>
+            <when test='filterValue != null and filterValue == "Male" '>
+                AND guest_gender = '남성'
+            </when>
+            <when test='filterValue != null and filterValue == "Female" '>
+                AND guest_gender = '여성'
+            </when>
+            <when test='filterValue != null and filterValue == "WithVideo" '>
+                AND guest_videoLink != ''
+            </when>
+            <when test='filterValue != null and filterValue == "WithoutVideo" '>
+                AND guest_videoLink = ''
+            </when>
+        </choose>
+        LIMIT #{skipFrom}, 20
     </select>
 
     <select id="getTotalCount" resultType="int">
         SELECT COUNT(*) FROM posting
         WHERE postingTitle LIKE '%${title}%'
+        <choose>
+            <when test='filterValue != null and filterValue == "" '>
+                order by id desc
+            </when>
+            <when test='filterValue != null and filterValue == "Recent" '>
+                order by id desc
+            </when>
+            <when test='filterValue != null and filterValue == "Oldest" '>
+                order by id asc
+            </when>
+            <when test='filterValue != null and filterValue == "Most" '>
+                order by views desc
+            </when>
+            <when test='filterValue != null and filterValue == "Least" '>
+                order by views asc
+            </when>
+            <when test='filterValue != null and filterValue == "Squat" '>
+                order by guest_squat desc
+            </when>
+            <when test='filterValue != null and filterValue == "Benchpress" '>
+                order by guest_benchpress desc
+            </when>
+            <when test='filterValue != null and filterValue == "Deadlift" '>
+                order by guest_deadlift desc
+            </when>
+            <when test='filterValue != null and filterValue == "Male" '>
+                AND guest_gender = '남성'
+            </when>
+            <when test='filterValue != null and filterValue == "Female" '>
+                AND guest_gender = '여성'
+            </when>
+            <when test='filterValue != null and filterValue == "WithVideo" '>
+                AND guest_videoLink != ''
+            </when>
+            <when test='filterValue != null and filterValue == "WithoutVideo" '>
+                AND guest_videoLink = ''
+            </when>
+        </choose>
     </select>
 
     <select id="getById" resultMap ="postingmap">
         SELECT * FROM posting WHERE id = #{id}
     </select>
 
-    <!-- 게시물 목록(페이징) #{pageNum}이 보여질 페이지, 10은 한 페이지 당 보이는 게시물 수 -->
-    <select id="getListPaging" resultMap ="postingmap">
-        SELECT * FROM posting order by id desc
-        LIMIT #{skipFrom},10
-    </select>
-
-    <select id="getByTitle" resultMap ="postingmap">
-        SELECT * FROM posting
-        WHERE postingTitle LIKE '%${title}%'
-        order by id desc
-        LIMIT #{skipFrom}, 10
-    </select>
-
     <update id="updateViews">
         UPDATE posting SET views = views +1 WHERE id=#{id}
     </update>
-
-
-
-    <!-- 페이징 기능 with SearchDto 블로그 그거 만들어보고 다시 만들기-->
-
-
-
-
-    <!--
-    <select id="getByCorrectTitle" resultMap ="postingmap">
-        SELECT * FROM posting WHERE postingTitle = #{title}
-    </select>
-    -->
 
 </mapper>

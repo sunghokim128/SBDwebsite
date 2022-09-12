@@ -10,19 +10,13 @@ public interface PostingMapper {
 
     int insert(Posting posting);
 
-    List<Posting> getByTitle(String title, int skipFrom);
-
-    int getTotalCount(String title);
-
-    List<Posting> getAll();
+    int getTotalCount(String title, String filterValue);
 
     Posting getById(int id);
 
-    List<Posting> getListPaging(int skipFrom);
-
     void updateViews(int id);
 
-
+    List<Posting> getPage(String title, int skipFrom, String filterValue); // String filter어쩌고 하고 더 늘어날 수 있음
 
 
 
