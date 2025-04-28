@@ -9,18 +9,6 @@
 
 ---
 
-## 🚀 Table of Contents
-
-- [About](#about)  
-- [Features](#features)  
-- [Technologies](#technologies)  
-- [Architecture & Deployment](#architecture--deployment)  
-- [Getting Started](#getting-started)  
-- [Lessons Learned](#lessons-learned)  
-- [License](#license)  
-
----
-
 ## 📝 About
 
 SBD Website (“samde500”) is a simple online bulletin board where lifters can post and validate their Squat, Bench-press, and Deadlift (SBD) numbers with proof videos. By requiring video links for every post, it creates a wholesome, judgment-free space for sharing gym achievements—silencing anonymous “mid” comments and encouraging genuine camaraderie.
